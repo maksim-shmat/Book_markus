@@ -25,7 +25,7 @@ SECRET_KEY = '43_q#l046ih3=5s3heb_uc(=o40-_dl+=g$6%60roja74poqv('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -127,4 +128,11 @@ LOGOUT_URL = 'logout'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR, 'media/'
+MEDIA_ROOT = 'BASE_DIR, media/' 
+
+AUTHENTICATION_BACKENDS = [
+        'django.contrib.auth.backends.ModelBackend',
+        'account.authentication.EmailAuthBackend',
+        'social_core.backends.twitter.TwitterOAuth',
+        'social_core.backends.google.GoogleOAuth2',
+]
