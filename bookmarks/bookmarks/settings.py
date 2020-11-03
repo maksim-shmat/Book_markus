@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,11 @@ SECRET_KEY = '43_q#l046ih3=5s3heb_uc(=o40-_dl+=g$6%60roja74poqv('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['mysite.com',
+                 'localhost',
+                 '127.0.0.1',
+                 '285072e131c9.ngrok.io'
+                ]
 
 
 # Application definition
@@ -40,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'images.apps.ImagesConfig',
+    'sorl.thumbnail',
+    'actions.apps.ActionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +144,8 @@ AUTHENTICATION_BACKENDS = [
         'social_core.backends.twitter.TwitterOAuth',
         'social_core.backends.google.GoogleOAuth2',
 ]
+
+ABSOLUTE_URL_OVERRIDES = {
+        'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
+
